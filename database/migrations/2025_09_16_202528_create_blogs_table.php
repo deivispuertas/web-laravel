@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hearts', function (Blueprint $table) {
+        Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
-            $table->morphs('heartable'); // this allows hearts to be associated with either questions or answers
+            $table->string('title');
+            $table->text('content');
+            $table->foreignId('category_id')
+                ->constrained('categories')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hearts');
+        Schema::dropIfExists('blogs');
     }
 };
