@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [PageController::class, 'index'])->name('home');
+Route::get('questions/{question}', [QuestionController::class, 'show'])->name('questions.show');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
