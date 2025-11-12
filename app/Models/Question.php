@@ -29,4 +29,24 @@ class Question extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    public function hearts()
+    {
+        return $this->morphMany(Heart::class, 'heartable');
+    }
+
+    public function isHearted()
+    {
+        return $this->hearts()->where('user_id', 10)->exists();
+    }
+
+    public function heart() 
+    {
+        $this->hearts()->create(['user_id' => 10]);
+    }
+
+    public function unHeart() 
+    {
+        $this->hearts()->where('user_id', 10)->delete();
+    }
 }
